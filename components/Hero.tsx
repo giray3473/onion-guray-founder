@@ -3,10 +3,18 @@
 import { person } from "@/lib/content";
 import { MAIN_SITE_URL } from "@/lib/site";
 import { motion, useReducedMotion } from "framer-motion";
+import { useEffect, useState } from "react";
 
 export function Hero() {
   const preferReduced = useReducedMotion();
+  const [canAnimate, setCanAnimate] = useState(false);
   const ease = [0.22, 1, 0.36, 1] as const;
+
+  useEffect(() => {
+    setCanAnimate(true);
+  }, []);
+
+  const motionOn = canAnimate && !preferReduced;
 
   return (
     <section
@@ -15,7 +23,7 @@ export function Hero() {
     >
       <div className="mx-auto w-full max-w-6xl">
         <motion.p
-          initial={preferReduced ? false : { opacity: 0, y: 12 }}
+          initial={motionOn ? { opacity: 0, y: 12 } : false}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease }}
           className="mb-6 text-[11px] uppercase tracking-[0.22em] text-soft-gray"
@@ -25,7 +33,7 @@ export function Hero() {
 
         <div className="grid gap-2 md:grid-cols-[1fr_auto] md:items-end md:gap-8">
           <motion.h1
-            initial={preferReduced ? false : { opacity: 0, y: 28, scale: 0.98 }}
+            initial={motionOn ? { opacity: 0, y: 28, scale: 0.98 } : false}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 1, delay: 0.06, ease }}
             className="headline text-[clamp(3.5rem,14vw,9.5rem)] text-off-white"
@@ -34,7 +42,7 @@ export function Hero() {
           </motion.h1>
 
           <motion.p
-            initial={preferReduced ? false : { opacity: 0, y: 16 }}
+            initial={motionOn ? { opacity: 0, y: 16 } : false}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.18, ease }}
             className="max-w-sm pb-2 text-[14px] leading-relaxed text-soft-gray md:text-right"
@@ -44,7 +52,7 @@ export function Hero() {
         </div>
 
         <motion.div
-          initial={preferReduced ? false : { opacity: 0, y: 20 }}
+          initial={motionOn ? { opacity: 0, y: 20 } : false}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.2, ease }}
           className="mt-2 flex flex-col gap-6 border-t border-border pt-8 md:mt-4 md:flex-row md:items-end md:justify-between"

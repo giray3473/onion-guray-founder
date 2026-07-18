@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import { type ReactNode } from "react";
+import { type ReactNode, useEffect, useState } from "react";
 
 type RevealProps = {
   children: ReactNode;
@@ -17,8 +17,13 @@ export function Reveal({
   y = 24,
 }: RevealProps) {
   const preferReduced = useReducedMotion();
+  const [canAnimate, setCanAnimate] = useState(false);
 
-  if (preferReduced) {
+  useEffect(() => {
+    setCanAnimate(true);
+  }, []);
+
+  if (preferReduced || !canAnimate) {
     return <div className={className}>{children}</div>;
   }
 
