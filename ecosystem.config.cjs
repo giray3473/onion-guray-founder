@@ -1,12 +1,17 @@
+const path = require("path");
+
 module.exports = {
   apps: [
     {
       name: "guray-founder",
-      script: "node_modules/next/dist/bin/next",
-      args: "start -p 3001",
+      cwd: path.join(__dirname, ".next", "standalone"),
+      script: "server.js",
+      instances: 1,
+      exec_mode: "fork",
       env: {
         NODE_ENV: "production",
-        PORT: "3001",
+        PORT: 3001,
+        HOSTNAME: "0.0.0.0",
       },
     },
   ],

@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "prepare:standalone": "node scripts/prepare-standalone.mjs",
+    "build:aapanel": "next build && node scripts/prepare-standalone.mjs"
   },
   "dependencies": {
     "framer-motion": "^12.42.2",
